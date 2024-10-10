@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Member
+from .models import Member, Project
 from django.contrib.auth import authenticate
 
 class MemberSerializer(serializers.ModelSerializer):
@@ -25,3 +25,8 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("Username and password are required.")
         
         return attrs
+    
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
