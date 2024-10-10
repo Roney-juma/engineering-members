@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, status
+from rest_framework import generics,viewsets, status
 from rest_framework.response import Response
+from django.contrib.auth import authenticate
 from .models import Member
-from .serializers import MemberSerializer
+from .serializers import LoginSerializer, MemberSerializer
 
 class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
@@ -36,3 +37,15 @@ class MemberViewSet(viewsets.ModelViewSet):
         return Response({
             "message": "Member deleted successfully"
         }, status=status.HTTP_204_NO_CONTENT)
+
+class MemberLoginView(generics.GenericAPIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        print(f"Login Request Data: {request.data}")
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        return Response({"message": "Login successful", "user_id": user.id}, status=status.HTTP_200_OK)
+
+    
