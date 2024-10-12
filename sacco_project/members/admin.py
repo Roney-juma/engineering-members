@@ -1,6 +1,12 @@
 from django.contrib import admin
 
 from .models import Member, Project
+
+
+admin.site.site_header = "Mesk Admin"
+admin.site.site_title = "Mesk Admin Portal"
+admin.site.index_title = "Welcome to Mesk Admin Portal"
+
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'email', 'username', 'phone_number', 'membership_number', 'join_date')
