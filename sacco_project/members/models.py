@@ -4,6 +4,10 @@ from django.core.exceptions import ValidationError
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.hashers import make_password
+from django.db import models
+import cloudinary
+import cloudinary.uploader
+import cloudinary.models
 
 class Member(models.Model):
     full_name = models.CharField(max_length=255)
@@ -11,9 +15,11 @@ class Member(models.Model):
     username = models.CharField(max_length=150, unique=True, blank=True)
     phone_number = models.CharField(max_length=15, unique=True)
     membership_number = models.CharField(max_length=50, unique=True)
-    certificate = models.FileField(upload_to='certificates/', null=True, blank=True)
+    profile_picture = cloudinary.models.CloudinaryField('image', null=True, blank=True)
+    certificate = cloudinary.models.CloudinaryField('file', null=True, blank=True)  
     join_date = models.DateField(auto_now_add=True)
-    password = models.CharField(max_length=128)  # No default for security
+    password = models.CharField(max_length=128)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.full_name
