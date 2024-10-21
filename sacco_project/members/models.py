@@ -37,6 +37,10 @@ class Member(models.Model):
         if Member.objects.filter(username=self.username).exists() and self.pk is None:
             raise ValidationError("A member with this username already exists.")
         
+        if not self.membership_number:
+            member_count = Member.objects.count() + 1
+            self.membership_number = f"MESK-{member_count}"
+        
         super().save(*args, **kwargs)
 
 class Project(models.Model):
