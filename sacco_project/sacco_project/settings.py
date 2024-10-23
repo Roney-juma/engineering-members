@@ -16,12 +16,13 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-# Cloudinary settings
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'your_cloud_name',
-    'API_KEY': 'your_api_key',
-    'API_SECRET': 'your_api_secret',
-}
+# Configuration       
+cloudinary.config( 
+    cloud_name = "diwhoj80y", 
+    api_key = "884734729716537", 
+    api_secret = "bzCfzsMuu0kkd69XzKthLfaQ4F8",
+    secure=True
+)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
