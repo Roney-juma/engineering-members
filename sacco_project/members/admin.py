@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Member, Project
+from .models import Member, EventImage,Event,Blog
 
 
 admin.site.site_header = "Mesk Admin"
@@ -14,9 +14,20 @@ class MemberAdmin(admin.ModelAdmin):
     list_filter = ('join_date',)
     readonly_fields = ('join_date',)
 
-@admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'start_date', 'end_date', 'created_at', 'updated_at')
-    search_fields = ('name',)
-    list_filter = ('start_date', 'end_date')
-    readonly_fields = ('created_at', 'updated_at')
+class EventImageInline(admin.TabularInline):
+    model = EventImage
+    extra = 1  # Number of empty image fields to display by default for new entries
+
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('name', 'start_date', 'end_date', 'created_at')
+    search_fields = ('name', 'description')
+    inlines = [EventImageInline]
+
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'published_date')
+    search_fields = ('title', 'author')
+
+# Register your models here
+admin.site.register(Event, EventAdmin)
+admin.site.register(EventImage)

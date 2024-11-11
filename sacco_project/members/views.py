@@ -2,8 +2,8 @@ from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from django.db.models import Q 
-from .models import Member,Project
-from .serializers import LoginSerializer, MemberSerializer, ProjectSerializer
+from .models import Member,Event,Blog
+from .serializers import LoginSerializer, MemberSerializer, EventSerializer,BlogSerializer
 
 class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
@@ -67,6 +67,10 @@ class MemberLoginView(generics.GenericAPIView):
             "user_id": user.id
         }, status=status.HTTP_200_OK)
 
-class ProjectViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+class BlogViewSet(viewsets.ModelViewSet):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer

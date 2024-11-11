@@ -21,11 +21,12 @@ class Member(models.Model):
     password = models.CharField(max_length=128)
     is_active = models.BooleanField(default=True)
 
+    CLOUDINARY_BASE_URL = "https://res.cloudinary.com/diwhoj80y/"
+
     def __str__(self):
         return self.full_name
 
     def save(self, *args, **kwargs):
-        # Hash the password before saving
         if self.pk is None:  
             self.password = make_password(self.password)
         
@@ -43,13 +44,30 @@ class Member(models.Model):
         
         super().save(*args, **kwargs)
 
-class Project(models.Model):
+class Event(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     start_date = models.DateField()
+    
     end_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+class EventImage(models.Model):
+    event = models.ForeignKey(Event, related_name='images', on_delete=models.CASCADE)
+    image = cloudinary.models.CloudinaryField('image')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+
+class Blog(models.Model):
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    author = models.CharField(max_length=255)
+    image = cloudinary.models.CloudinaryField('image', blank=True, null=True)
+    published_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

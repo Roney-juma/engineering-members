@@ -116,10 +116,10 @@ WSGI_APPLICATION = 'sacco_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rj_dev_db',
-        'USER': 'rj_dev_db_user',
-        'PASSWORD': 'hOoLCk842iQekdqf7UKkyvom6rIQldC3',
-        'HOST': 'dpg-cs3oto0gph6c73c5gkcg-a.oregon-postgres.render.com',
+        'NAME': 'mesk',
+        'USER': 'mesk_user',
+        'PASSWORD': 'XxO3RIDqsveGGm5gJVN4SPNNaqWcFMsL',
+        'HOST': 'dpg-csovbtqj1k6c73aop7r0-a.oregon-postgres.render.com',
         'PORT': '5432',
     }
 }
