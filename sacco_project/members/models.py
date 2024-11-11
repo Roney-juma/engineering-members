@@ -1,13 +1,8 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
-from django.core.exceptions import ValidationError
-from django.db import models
-from django.contrib.auth.hashers import make_password
-from django.db import models
 from ckeditor.fields import RichTextField
 import cloudinary
-import cloudinary.uploader
 import cloudinary.models
 
 class Member(models.Model):
@@ -31,11 +26,9 @@ class Member(models.Model):
         if self.pk is None:  
             self.password = make_password(self.password)
         
-        # Automatically set the username to be the email if not provided
         if not self.username:
             self.username = self.email
         
-        # Validate uniqueness of username
         if Member.objects.filter(username=self.username).exists() and self.pk is None:
             raise ValidationError("A member with this username already exists.")
         
@@ -45,11 +38,16 @@ class Member(models.Model):
         
         super().save(*args, **kwargs)
 
+    def profile_picture_url(self):
+        return f"{self.CLOUDINARY_BASE_URL}{self.profile_picture}" if self.profile_picture else None
+
+    def certificate_url(self):
+        return f"{self.CLOUDINARY_BASE_URL}{self.certificate}" if self.certificate else None
+
 class Event(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     start_date = models.DateField()
-    
     end_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -62,6 +60,10 @@ class EventImage(models.Model):
     image = cloudinary.models.CloudinaryField('image')
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
+    CLOUDINARY_BASE_URL = "https://res.cloudinary.com/diwhoj80y/"
+
+    def image_url(self):
+        return f"{self.CLOUDINARY_BASE_URL}{self.image}"
 
 class Blog(models.Model):
     title = models.CharField(max_length=255)
@@ -71,5 +73,10 @@ class Blog(models.Model):
     image = cloudinary.models.CloudinaryField('image', blank=True, null=True)
     published_date = models.DateTimeField(auto_now_add=True)
 
+    CLOUDINARY_BASE_URL = "https://res.cloudinary.com/diwhoj80y/"
+
     def __str__(self):
         return self.title
+
+    def image_url(self):
+        return f"{self.CLOUDINARY_BASE_URL}{self.image}" if self.image else None
