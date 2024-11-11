@@ -65,7 +65,8 @@ class EventImage(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=255)
-    content = RichTextField()  # Use CKEditor's RichTextField
+    content = RichTextField()
+    description = models.TextField(blank=True, null=True)
     author = models.CharField(max_length=255)
     image = cloudinary.models.CloudinaryField('image', blank=True, null=True)
     published_date = models.DateTimeField(auto_now_add=True)
