@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -90,6 +91,15 @@ CORS_ALLOW_METHODS = [
 ]
 
 ROOT_URLCONF = 'sacco_project.urls'
+
+# CKEditor configuration (optional, customize as needed)
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+    },
+}
 
 TEMPLATES = [
     {

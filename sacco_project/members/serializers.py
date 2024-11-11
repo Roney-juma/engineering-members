@@ -55,6 +55,8 @@ class EventSerializer(serializers.ModelSerializer):
         return instance
     
 class BlogSerializer(serializers.ModelSerializer):
+    content = serializers.CharField()
+
     class Meta:
         model = Blog
         fields = ['id', 'title', 'content', 'author', 'image', 'published_date']

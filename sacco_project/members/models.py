@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.hashers import make_password
 from django.db import models
+from ckeditor.fields import RichTextField
 import cloudinary
 import cloudinary.uploader
 import cloudinary.models
@@ -64,7 +65,7 @@ class EventImage(models.Model):
 
 class Blog(models.Model):
     title = models.CharField(max_length=255)
-    content = models.TextField()
+    content = RichTextField()  # Use CKEditor's RichTextField
     author = models.CharField(max_length=255)
     image = cloudinary.models.CloudinaryField('image', blank=True, null=True)
     published_date = models.DateTimeField(auto_now_add=True)
