@@ -16,6 +16,10 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+from os import getenv
+
+DATABASE_URL='postgresql://mesk_owner:zFSBRwvH4M6b@ep-soft-grass-a5lele6o.us-east-2.aws.neon.tech/mesk?sslmode=require'
+
 # Configuration       
 cloudinary.config( 
     cloud_name = "diwhoj80y", 
@@ -127,12 +131,26 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mesk',
-        'USER': 'mesk_user',
-        'PASSWORD': 'XxO3RIDqsveGGm5gJVN4SPNNaqWcFMsL',
-        'HOST': 'dpg-csovbtqj1k6c73aop7r0-a.oregon-postgres.render.com',
+        'USER': 'mesk_owner',
+        'PASSWORD': 'zFSBRwvH4M6b',
+        'HOST': 'ep-soft-grass-a5lele6o.us-east-2.aws.neon.tech',
         'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require'
+        },
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'mesk',
+#         'USER': 'mesk_user',
+#         'PASSWORD': 'XxO3RIDqsveGGm5gJVN4SPNNaqWcFMsL',
+#         'HOST': 'dpg-csovbtqj1k6c73aop7r0-a.oregon-postgres.render.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 
